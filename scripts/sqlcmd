@@ -1,0 +1,4 @@
+#!/bin/bash
+# copy this file in PATH (eg. $HOME/.local/bin/sqlcmd)
+# https://docs.microsoft.com/de-de/sql/tools/sqlcmd-utility?view=sql-server-ver15#sqlcmd-scripting-variables
+podman run --rm -it -e SQLCMD* sqlservertools sqlcmd "$@"

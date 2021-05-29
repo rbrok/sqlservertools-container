@@ -1,0 +1,32 @@
+FROM debian:stretch-slim
+
+# installing dependencies from debian repositories
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    			python3 python3-pip python3-setuptools python3-wheel \
+    			libssl1.0.2 libunwind8 libicu57 \
+    			apt-transport-https curl gnupg2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# adding microsoft's package repository
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/debian/9/prod stretch main" >> /etc/apt/sources.list
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc > /root/microsoft.asc && apt-key add /root/microsoft.asc && rm -f /root/microsoft.asc
+
+# installing mssql-tools and its dependencies
+RUN apt-get update && \
+    ACCEPT_EULA=y apt-get install -y mssql-tools && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# installing mssql-scripter and mssql-cli
+RUN pip3 install mssql-scripter mssql-cli && rm -rf /root/.cache/pip
+
+# creating symbolic links for executables and removing *.bat files
+RUN ln -s /usr/bin/python3 /usr/local/bin/python && \
+    ln -s /opt/mssql-tools/bin/sqlcmd /usr/local/bin/sqlcmd && \
+    ln -s /opt/mssql-tools/bin/bcp /usr/local/bin/bcp && \
+    rm /usr/local/bin/*.bat
+
+# default entry after container start
+ENTRYPOINT ["/bin/bash"]

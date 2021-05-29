@@ -1,0 +1,3 @@
+#!/bin/bash
+# copy this file into your $PATH (eg. $HOME/.local/bin/mssql-scripter)
+podman run --rm -it -e MSSQL_SCRIPTER_* sqlservertools mssql-scripter "$@"

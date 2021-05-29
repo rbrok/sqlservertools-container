@@ -1,0 +1,12 @@
+#!/bin/bash
+# copy this file in PATH (eg. $HOME/.local/bin/mssql-cli)
+#https://github.com/dbcli/mssql-cli
+podman run --rm -it -e MSSQL_CLI_* sqlservertools mssql-cli "$@"
+
+#https://github.com/dbcli/mssql-cli/blob/master/doc/usage_guide.md#environment-variables
+#MSSQL_CLI_USER = u'MSSQL_CLI_USER'
+#MSSQL_CLI_PASSWORD = u'MSSQL_CLI_PASSWORD'
+#MSSQL_CLI_DATABASE = u'MSSQL_CLI_DATABASE'
+#MSSQL_CLI_SERVER = u'MSSQL_CLI_SERVER'
+#MSSQL_CLI_ROW_LIMIT = u'MSSQL_CLI_ROW_LIMIT'
+#MSSQL_CLI_RC = u'MSSQL_CLI_RC'
